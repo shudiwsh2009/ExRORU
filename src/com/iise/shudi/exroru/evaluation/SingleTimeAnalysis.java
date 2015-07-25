@@ -21,9 +21,9 @@ public class SingleTimeAnalysis {
         SingleTimeAnalysis sta = new SingleTimeAnalysis();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(ROOT_FOLDER +
-            "ExRORU_SingleTimeAnalysis_150625a.csv"));
-        writer.write(",totalTime,init1,causal1,concurrent1,sda1,importance1"
-            + ",init1,causal2,concurrent2,sda2,importance2,similarity");
+            "ExRORU_SingleTimeAnalysis_150725b.csv"));
+        writer.write(",totalTime,cpu1,lc1,causal1,concurrent1,sda1,importance1"
+            + ",cpu2,lc2,causal2,concurrent2,sda2,importance2,similarity");
         writer.newLine();
         sta.analyze(writer);
         writer.close();
@@ -62,7 +62,15 @@ public class SingleTimeAnalysis {
         for(int p = 0; p < nets.size(); ++p) {
             for(int q = p + 1; q < nets.size(); ++q) {
                 System.out.println((++finish) + "/" + totalCount + " " + nets.get(p).getName() + " & " + nets.get(q).getName());
-                long[] times = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times1 = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times2 = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times3 = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times4 = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times5 = rorm.similarityWithTime(nets.get(p), nets.get(q));
+                long[] times = new long[times1.length];
+                for (int i = 0; i < times.length; ++i) {
+                    times[i] = (times1[i] + times2[i] + times3[i] + times4[i] + times5[i]) / 5;
+                }
                 writer.write(nets.get(p).getName() + " & " + nets.get(q).getName());
                 for (long t : times) {
                     writer.write("," + t);
