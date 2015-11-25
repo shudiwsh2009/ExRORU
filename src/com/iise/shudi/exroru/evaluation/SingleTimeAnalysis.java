@@ -21,7 +21,7 @@ public class SingleTimeAnalysis {
         SingleTimeAnalysis sta = new SingleTimeAnalysis();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(ROOT_FOLDER +
-            "ExRORU_SingleTimeAnalysis_150725b.csv"));
+            "ExRORU_SingleTimeAnalysis_151117a.csv"));
         writer.write(",totalTime,cpu1,lc1,causal1,concurrent1,sda1,importance1"
             + ",cpu2,lc2,causal2,concurrent2,sda2,importance2,similarity");
         writer.newLine();
