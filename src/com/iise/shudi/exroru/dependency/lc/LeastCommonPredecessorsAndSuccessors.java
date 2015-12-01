@@ -66,12 +66,12 @@ public class LeastCommonPredecessorsAndSuccessors {
             Event e1 = events.get(i);
             for (int j = i + 1; j < events.size(); ++j) {
                 Event e2 = events.get(j);
-//                boolean[] skipForwardSys = hasSkipForwardSys(e1, e2);
-//                this.forwardSysSkip.get(e1).put(e2, skipForwardSys[0]);
-//                this.forwardSysSkip.get(e2).put(e1, skipForwardSys[1]);
-//                boolean[] skipBackwardSys = hasSkipBackwardSys(e1, e2);
-//                this.backwardSysSkip.get(e1).put(e2, skipBackwardSys[0]);
-//                this.backwardSysSkip.get(e2).put(e1, skipBackwardSys[1]);
+                boolean[] skipForwardSys = hasSkipForwardSys(e1, e2);
+                this.forwardSysSkip.get(e1).put(e2, skipForwardSys[0]);
+                this.forwardSysSkip.get(e2).put(e1, skipForwardSys[1]);
+                boolean[] skipBackwardSys = hasSkipBackwardSys(e1, e2);
+                this.backwardSysSkip.get(e1).put(e2, skipBackwardSys[0]);
+                this.backwardSysSkip.get(e2).put(e1, skipBackwardSys[1]);
                 boolean[] skipForwardCpu = hasSkipForwardCpu(e1, e2);
                 this.forwardCpuSkip.get(e1).put(e2, skipForwardCpu[0]);
                 this.forwardCpuSkip.get(e2).put(e1, skipForwardCpu[1]);

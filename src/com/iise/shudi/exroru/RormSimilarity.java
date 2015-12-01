@@ -20,12 +20,12 @@ public class RormSimilarity {
 
         PNMLSerializer pnmlSerializer = new PNMLSerializer();
         String filePath =
-                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\example_petri.pnml";
+                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M4.pnml";
         NetSystem net = pnmlSerializer.parse(filePath);
         RefinedOrderingRelationsMatrix rorm = new
-                RefinedOrderingRelationsMatrix((NetSystem) net.clone());
+                RefinedOrderingRelationsMatrix((NetSystem) net.clone(), false);
         rorm.printMatrix();
-        rorm.print();
+//        rorm.print();
 
 //        PNMLSerializer pnmlSerializer = new PNMLSerializer();
 //        RefinedOrderingRelation.SDA_WEIGHT = 0.0;
@@ -165,7 +165,7 @@ public class RormSimilarity {
         double causalWeight = ((double) causalUnionSize) / ((double) unionSize);
         double inverseCausalWeight = ((double) inverseCausalUnionSize) / ((double) unionSize);
         double concurrentWeight = ((double) concurrentUnionSize) / ((double) unionSize);
-        System.out.println(causalSim + " " + inverseCausalSim + " " + concurrentSim);
+//        System.out.println(causalSim + " " + inverseCausalSim + " " + concurrentSim);
         return (float) (causalSim * causalWeight + inverseCausalSim * inverseCausalWeight
                 + concurrentSim * concurrentWeight);
     }
@@ -222,7 +222,7 @@ public class RormSimilarity {
         double causalSim = causalUnion == 0 ? 0 : causalInter / causalUnion;
         double inverseCausalSim = inverseCausalUnion == 0 ? 0 : inverseCausalInter / inverseCausalUnion;
         double concurrentSim = concurrentUnion == 0 ? 0 : concurrentInter / concurrentUnion;
-        System.out.println(causalSim + " " + inverseCausalSim + " " + concurrentSim);
+//        System.out.println(causalSim + " " + inverseCausalSim + " " + concurrentSim);
         return (float) ((causalSim + inverseCausalSim + concurrentSim) / 3);
     }
 }

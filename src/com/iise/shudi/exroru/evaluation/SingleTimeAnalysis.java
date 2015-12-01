@@ -17,9 +17,9 @@ public class SingleTimeAnalysis {
 
     public static void main(String[] args) throws Exception {
         RefinedOrderingRelation.SDA_WEIGHT = 0.0;
-        RefinedOrderingRelation.IMPORTANCE = true;
+        RefinedOrderingRelation.IMPORTANCE = false;
         SingleTimeAnalysis sta = new SingleTimeAnalysis();
-        String saveFilenamePrefix = "ExRORU_SingleTimeAnalysis_151201a_";
+        String saveFilenamePrefix = "ExRORU_SingleTimeAnalysis_151201b_";
         sta.analyze("DG", saveFilenamePrefix + "DG.csv");
         sta.analyze("TC", saveFilenamePrefix + "TC.csv");
         sta.analyze("SAP", saveFilenamePrefix + "SAP.csv");

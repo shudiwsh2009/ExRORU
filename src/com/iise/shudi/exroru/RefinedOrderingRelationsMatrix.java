@@ -84,7 +84,9 @@ public class RefinedOrderingRelationsMatrix {
         generateSequentialDirectAdjacency();
         this.sdaTime = System.nanoTime() - start;
         start = System.nanoTime();
-        generateRelationImportance();
+        if (RefinedOrderingRelation.IMPORTANCE) {
+            generateRelationImportance();
+        }
         this.importanceTime = System.nanoTime() - start;
     }
 
@@ -111,10 +113,13 @@ public class RefinedOrderingRelationsMatrix {
                 Transition toTransition = alObTransitions.get(j);
                 Set<Event> toEvents = this._cpu.getEvents(toTransition);
 
-                // if a == b && there is a trace a -> b, then a ->(S) b
+                // if a = b and there is a trace a -> b, then a ->(S) b
                 if (i == j) {
                     boolean selfLoop = false;
                     for (Event a : fromEvents) {
+                        if (selfLoop) {
+                            break;
+                        }
                         for (Event b : toEvents) {
                             if (findTrace(a, b, new HashSet<>()) != null) {
                                 this.causalMatrix[this.tName.indexOf(fromTransition.getLabel())][this.tName
@@ -122,6 +127,7 @@ public class RefinedOrderingRelationsMatrix {
                                 this.inverseCausalMatrix[this.tName.indexOf(fromTransition.getLabel())][this.tName
                                         .indexOf(toTransition.getLabel())].setRelation(Relation.SOMETIMES);
                                 selfLoop = true;
+                                break;
                             }
                         }
                     }
@@ -253,8 +259,8 @@ public class RefinedOrderingRelationsMatrix {
                                     return true;
                                 }
                                 // if succ skips end
-//                                if (this._lc.getForwardSysSkip().get(succ).get(end)) {
-                                if (this._lc.getForwardCpuSkip().get(succ).get(end)) {
+                                if (this._lc.getForwardSysSkip().get(succ).get(end)) {
+//                                if (this._lc.getForwardCpuSkip().get(succ).get(end)) {
                                     return true;
                                 }
                             }
@@ -298,8 +304,8 @@ public class RefinedOrderingRelationsMatrix {
                                     return true;
                                 }
                                 // if pred skips start
-//                                if (this._lc.getBackwardSysSkip().get(pred).get(start)) {
-                                if (this._lc.getForwardCpuSkip().get(pred).get(start)) {
+                                if (this._lc.getBackwardSysSkip().get(pred).get(start)) {
+//                                if (this._lc.getForwardCpuSkip().get(pred).get(start)) {
                                     return true;
                                 }
                             }
