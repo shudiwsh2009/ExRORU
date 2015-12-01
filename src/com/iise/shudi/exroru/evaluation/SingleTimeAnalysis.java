@@ -19,30 +19,21 @@ public class SingleTimeAnalysis {
         RefinedOrderingRelation.SDA_WEIGHT = 0.0;
         RefinedOrderingRelation.IMPORTANCE = true;
         SingleTimeAnalysis sta = new SingleTimeAnalysis();
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(ROOT_FOLDER +
-            "ExRORU_SingleTimeAnalysis_151117a.csv"));
-        writer.write(",totalTime,cpu1,lc1,causal1,concurrent1,sda1,importance1"
-            + ",cpu2,lc2,causal2,concurrent2,sda2,importance2,similarity");
-        writer.newLine();
-        sta.analyze(writer);
-        writer.close();
+        String saveFilenamePrefix = "ExRORU_SingleTimeAnalysis_151201a_";
+        sta.analyze("DG", saveFilenamePrefix + "DG.csv");
+        sta.analyze("TC", saveFilenamePrefix + "TC.csv");
+        sta.analyze("SAP", saveFilenamePrefix + "SAP.csv");
     }
 
-    public void analyze(BufferedWriter writer) throws Exception {
-        File[] dgFiles = new File(ROOT_FOLDER + "DG").listFiles();
-        File[] tcFiles = new File(ROOT_FOLDER + "TC").listFiles();
-        File[] sapFiles = new File(ROOT_FOLDER + "SAP").listFiles();
-
-        // load net systems
-        List<NetSystem> dgNets = loadNets(dgFiles);
-        List<NetSystem> tcNets = loadNets(tcFiles);
-        List<NetSystem> sapNets = loadNets(sapFiles);
-
-        // compute time
-        computeTime(writer, dgNets);
-        computeTime(writer, tcNets);
-        computeTime(writer, sapNets);
+    public void analyze(String modelFolderName, String saveFilename) throws Exception {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(ROOT_FOLDER + saveFilename));
+        writer.write(",totalTime,cpu1,lc1,causal1,concurrent1,sda1,importance1"
+                + ",cpu2,lc2,causal2,concurrent2,sda2,importance2,similarity");
+        writer.newLine();
+        File[] modelFiles = new File(ROOT_FOLDER + modelFolderName).listFiles();
+        List<NetSystem> nets = loadNets(modelFiles);
+        computeTime(writer, nets);
+        writer.close();
     }
 
     private List<NetSystem> loadNets(File[] files) throws Exception {
@@ -73,7 +64,7 @@ public class SingleTimeAnalysis {
                 }
                 writer.write(nets.get(p).getName() + " & " + nets.get(q).getName());
                 for (long t : times) {
-                    writer.write("," + t);
+                    writer.write("," + ((double) t) / 1e6);
                 }
                 writer.newLine();
             }

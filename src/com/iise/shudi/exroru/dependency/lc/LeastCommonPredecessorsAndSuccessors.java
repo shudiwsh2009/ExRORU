@@ -66,12 +66,12 @@ public class LeastCommonPredecessorsAndSuccessors {
             Event e1 = events.get(i);
             for (int j = i + 1; j < events.size(); ++j) {
                 Event e2 = events.get(j);
-                boolean[] skipForwardSys = hasSkipForwardSys(e1, e2);
-                this.forwardSysSkip.get(e1).put(e2, skipForwardSys[0]);
-                this.forwardSysSkip.get(e2).put(e1, skipForwardSys[1]);
-                boolean[] skipBackwardSys = hasSkipBackwardSys(e1, e2);
-                this.backwardSysSkip.get(e1).put(e2, skipBackwardSys[0]);
-                this.backwardSysSkip.get(e2).put(e1, skipBackwardSys[1]);
+//                boolean[] skipForwardSys = hasSkipForwardSys(e1, e2);
+//                this.forwardSysSkip.get(e1).put(e2, skipForwardSys[0]);
+//                this.forwardSysSkip.get(e2).put(e1, skipForwardSys[1]);
+//                boolean[] skipBackwardSys = hasSkipBackwardSys(e1, e2);
+//                this.backwardSysSkip.get(e1).put(e2, skipBackwardSys[0]);
+//                this.backwardSysSkip.get(e2).put(e1, skipBackwardSys[1]);
                 boolean[] skipForwardCpu = hasSkipForwardCpu(e1, e2);
                 this.forwardCpuSkip.get(e1).put(e2, skipForwardCpu[0]);
                 this.forwardCpuSkip.get(e2).put(e1, skipForwardCpu[1]);
@@ -354,10 +354,10 @@ public class LeastCommonPredecessorsAndSuccessors {
         while (!queue.isEmpty()) {
             IBPNode u = queue.poll();
             if (u instanceof Event && ((Event) u).getTransition() == e2.getTransition()) {
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && this._loopJoinConditions.contains(u)) {
                 // hasLoopSucc1 = true;
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && ((Condition) u).getPlace() == sink) {
                 hasSinkSucc1 = true;
                 if (this.cpuReachMap.get(e2).get(u)) {
@@ -384,10 +384,10 @@ public class LeastCommonPredecessorsAndSuccessors {
         while (!queue.isEmpty()) {
             IBPNode u = queue.poll();
             if (u instanceof Event && ((Event) u).getTransition() == e1.getTransition()) {
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && this._loopJoinConditions.contains(u)) {
-                // hasLoopSucc2 = true;
-                System.out.print("");
+//                 hasLoopSucc2 = true;
+//                System.out.print("");
             } else if (u instanceof Condition && ((Condition) u).getPlace() == sink) {
                 hasSinkSucc2 = true;
                 if (this.cpuReachMap.get(e1).get(u)) {
@@ -473,10 +473,10 @@ public class LeastCommonPredecessorsAndSuccessors {
         while (!queue.isEmpty()) {
             IBPNode u = queue.poll();
             if (u instanceof Event && ((Event) u).getTransition() == e2.getTransition()) {
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && this._loopJoinConditions.contains(u)) {
                 // hasLoopPred1 = true;
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && ((Condition) u).getPlace() == source) {
                 hasSourcePred1 = true;
                 if (this.cpuReachMap.get(u).get(e2)) {
@@ -513,10 +513,10 @@ public class LeastCommonPredecessorsAndSuccessors {
         while (!queue.isEmpty()) {
             IBPNode u = queue.poll();
             if (u instanceof Event && ((Event) u).getTransition() == e1.getTransition()) {
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && this._loopJoinConditions.contains(u)) {
                 // hasLoopPred2 = true;
-                System.out.print("");
+//                System.out.print("");
             } else if (u instanceof Condition && ((Condition) u).getPlace() == source) {
                 hasSourcePred2 = true;
                 if (this.cpuReachMap.get(u).get(e1)) {

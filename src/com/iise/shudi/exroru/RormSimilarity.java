@@ -18,31 +18,31 @@ public class RormSimilarity {
         // "/Users/shudi/Desktop/parallel_A_with_outer_loop.pnml";
         // String filePath = "/Users/shudi/Desktop/M15.pnml";
 
-//        PNMLSerializer pnmlSerializer = new PNMLSerializer();
-//        String filePath =
-//                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\parallel_inv_1_a.pnml";
-//        NetSystem net = pnmlSerializer.parse(filePath);
-//        RefinedOrderingRelationsMatrix rorm = new
-//                RefinedOrderingRelationsMatrix((NetSystem) net.clone());
-//        rorm.printMatrix();
-//        rorm.print();
-
         PNMLSerializer pnmlSerializer = new PNMLSerializer();
-        RefinedOrderingRelation.SDA_WEIGHT = 0.0;
-        RefinedOrderingRelation.IMPORTANCE = true;
-        String filepath1 = "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M0.pnml";
-        String filepath2 = "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M0.pnml";
-        NetSystem net1 = pnmlSerializer.parse(filepath1);
-        NetSystem net2 = pnmlSerializer.parse(filepath2);
-        RormSimilarity rorm = new RormSimilarity();
-        float sim = rorm.similarity(net1, net2);
-//        BehavioralProfileSimilarity bp = new BehavioralProfileSimilarity();
-//        float sim = bp.similarity(net1, net2);
-        if (sim == Float.MIN_VALUE) {
-            System.out.println("Invalid Net System");
-        } else {
-            System.out.println(sim);
-        }
+        String filePath =
+                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\example_petri.pnml";
+        NetSystem net = pnmlSerializer.parse(filePath);
+        RefinedOrderingRelationsMatrix rorm = new
+                RefinedOrderingRelationsMatrix((NetSystem) net.clone());
+        rorm.printMatrix();
+        rorm.print();
+
+//        PNMLSerializer pnmlSerializer = new PNMLSerializer();
+//        RefinedOrderingRelation.SDA_WEIGHT = 0.0;
+//        RefinedOrderingRelation.IMPORTANCE = true;
+//        String filepath1 = "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M0.pnml";
+//        String filepath2 = "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M0.pnml";
+//        NetSystem net1 = pnmlSerializer.parse(filepath1);
+//        NetSystem net2 = pnmlSerializer.parse(filepath2);
+//        RormSimilarity rorm = new RormSimilarity();
+//        float sim = rorm.similarity(net1, net2);
+////        BehavioralProfileSimilarity bp = new BehavioralProfileSimilarity();
+////        float sim = bp.similarity(net1, net2);
+//        if (sim == Float.MIN_VALUE) {
+//            System.out.println("Invalid Net System");
+//        } else {
+//            System.out.println(sim);
+//        }
     }
 
     public float similarity(NetSystem net1, NetSystem net2) {
@@ -60,9 +60,9 @@ public class RormSimilarity {
         if (!rorm1.isValid() || !rorm2.isValid()) {
             return null;
         }
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         similarityWithNever(rorm1, rorm2);
-        long simTime = System.currentTimeMillis() - start;
+        long simTime = System.nanoTime() - start;
         long[] times = new long[2 + rorm1.getComputationTime().length + rorm2.getComputationTime().length];
         int i = 1;
         long totalTime = 0;

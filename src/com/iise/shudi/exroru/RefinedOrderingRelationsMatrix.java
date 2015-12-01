@@ -50,7 +50,7 @@ public class RefinedOrderingRelationsMatrix {
     }
 
     public RefinedOrderingRelationsMatrix(NetSystem sys, boolean extend) {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         this._extend = extend;
         this._valid = initialiseNetSystem(sys);
         if (!this._valid) {
@@ -58,10 +58,10 @@ public class RefinedOrderingRelationsMatrix {
         }
         this._sys = sys;
         this._cpu = new ProperCompletePrefixUnfolding(this._sys);
-        this.cpuTime = System.currentTimeMillis() - start;
-        start = System.currentTimeMillis();
+        this.cpuTime = System.nanoTime() - start;
+        start = System.nanoTime();
         this._lc = new LeastCommonPredecessorsAndSuccessors(this._cpu);
-        this.lcTime = System.currentTimeMillis() - start;
+        this.lcTime = System.nanoTime() - start;
         this._loopJoinConditions = getLoopJoinConditions();
         getTransitionNames();
         this.causalMatrix = new RefinedOrderingRelation[this.tName.size()][this.tName.size()];
@@ -74,18 +74,18 @@ public class RefinedOrderingRelationsMatrix {
                 this.concurrentMatrix[i][j] = new RefinedOrderingRelation(Relation.NEVER, false, 0);
             }
         }
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
         generateCausalAndInverseCausalMatrix();
-        this.causalTime = System.currentTimeMillis() - start;
-        start = System.currentTimeMillis();
+        this.causalTime = System.nanoTime() - start;
+        start = System.nanoTime();
         generateConcurrentMatrix();
-        this.concurrentTime = System.currentTimeMillis() - start;
-        start = System.currentTimeMillis();
+        this.concurrentTime = System.nanoTime() - start;
+        start = System.nanoTime();
         generateSequentialDirectAdjacency();
-        this.sdaTime = System.currentTimeMillis() - start;
-        start = System.currentTimeMillis();
+        this.sdaTime = System.nanoTime() - start;
+        start = System.nanoTime();
         generateRelationImportance();
-        this.importanceTime = System.currentTimeMillis() - start;
+        this.importanceTime = System.nanoTime() - start;
     }
 
     public long[] getComputationTime() {
@@ -253,7 +253,8 @@ public class RefinedOrderingRelationsMatrix {
                                     return true;
                                 }
                                 // if succ skips end
-                                if (this._lc.getForwardSysSkip().get(succ).get(end)) {
+//                                if (this._lc.getForwardSysSkip().get(succ).get(end)) {
+                                if (this._lc.getForwardCpuSkip().get(succ).get(end)) {
                                     return true;
                                 }
                             }
@@ -297,7 +298,8 @@ public class RefinedOrderingRelationsMatrix {
                                     return true;
                                 }
                                 // if pred skips start
-                                if (this._lc.getBackwardSysSkip().get(pred).get(start)) {
+//                                if (this._lc.getBackwardSysSkip().get(pred).get(start)) {
+                                if (this._lc.getForwardCpuSkip().get(pred).get(start)) {
                                     return true;
                                 }
                             }
