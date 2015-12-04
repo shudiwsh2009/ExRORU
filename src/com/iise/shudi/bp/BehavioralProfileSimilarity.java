@@ -25,4 +25,11 @@ public class BehavioralProfileSimilarity {
         return (float) agg.score(alignment);
     }
 
+    public BehaviouralProfile<NetSystem, Node> feature(NetSystem net) {
+        final NetSystem netcopy = (NetSystem) net.clone();
+        netcopy.getSourcePlaces().stream().forEach(p -> netcopy.getMarking().put(p, 1));
+        BehaviouralProfile<NetSystem, Node> bp = BPCreatorUnfolding.getInstance().deriveRelationSet(netcopy);
+        return bp;
+    }
+
 }

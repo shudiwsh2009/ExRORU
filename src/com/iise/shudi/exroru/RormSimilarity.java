@@ -20,7 +20,7 @@ public class RormSimilarity {
 
         PNMLSerializer pnmlSerializer = new PNMLSerializer();
         String filePath =
-                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\M4.pnml";
+                "C:\\Users\\Shudi\\Desktop\\rorm\\test\\a2.s00000023__s00000863.pnml";
         NetSystem net = pnmlSerializer.parse(filePath);
         RefinedOrderingRelationsMatrix rorm = new
                 RefinedOrderingRelationsMatrix((NetSystem) net.clone(), false);
@@ -43,6 +43,11 @@ public class RormSimilarity {
 //        } else {
 //            System.out.println(sim);
 //        }
+    }
+
+    public RefinedOrderingRelationsMatrix feature(NetSystem net) {
+        RefinedOrderingRelationsMatrix rorm = new RefinedOrderingRelationsMatrix((NetSystem) net.clone(), false);
+        return rorm;
     }
 
     public float similarity(NetSystem net1, NetSystem net2) {

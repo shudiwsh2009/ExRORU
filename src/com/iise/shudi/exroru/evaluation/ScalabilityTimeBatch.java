@@ -1,6 +1,7 @@
 package com.iise.shudi.exroru.evaluation;
 
 import com.iise.shudi.bp.BehavioralProfileSimilarity;
+import com.iise.shudi.exroru.RefinedOrderingRelation;
 import com.iise.shudi.exroru.RormSimilarity;
 import org.jbpt.petri.NetSystem;
 import org.jbpt.petri.io.PNMLSerializer;
@@ -10,19 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Shudi on 2015/12/1.
+ * Created by Shudi on 2015/12/4.
  */
-public class TimeBatch {
-    public static final String ROOT_FOLDER = "C:\\Users\\Shudi\\Desktop\\rorm\\";
+public class ScalabilityTimeBatch {
+    public static final String ROOT_FOLDER = "C:\\Users\\Shudi\\Desktop\\rorm\\scalability\\";
+    public static int ITER_COUNT = 10;
 
     public static void main(String[] args) throws Exception {
-        TimeBatch tb = new TimeBatch();
-        double dg = tb.batch("DG");
-//        double tc = tb.batch("TC");
-//        double sap = tb.batch("SAP");
-        System.out.println("DG: " + dg);
-//        System.out.println("TC: " + tc);
-//        System.out.println("SAP: " + sap);
+        RefinedOrderingRelation.SDA_WEIGHT = 0.0;
+        RefinedOrderingRelation.IMPORTANCE = false;
+        ScalabilityTimeBatch tb = new ScalabilityTimeBatch();
+        tb.batch("breadth");
+        tb.batch("depth");
     }
 
     private double batch(String modelFolderName) throws Exception {
@@ -45,22 +45,20 @@ public class TimeBatch {
     private double timeBatch(List<NetSystem> models) {
 //        RormSimilarity measure = new RormSimilarity();
         BehavioralProfileSimilarity measure = new BehavioralProfileSimilarity();
-        int totalCount = models.size() * models.size(), finish = 0;
+        int totalCount = models.size(), finish = 0;
         long totalTime = 0L;
         for (int p = 0; p < models.size(); ++p) {
-            for (int q = 0; q < models.size(); ++q) {
-                System.out.println((++finish) + "/" + totalCount
-                        + " " + models.get(p).getName() + " & "
-                        + models.get(q).getName());
-                Long a = System.currentTimeMillis();
-                for (int i = 0; i < 5; ++i) {
-                    measure.similarity(models.get(p), models.get(q));
-                }
-                Long b = System.currentTimeMillis();
-                totalTime += (b - a);
+            System.out.println((++finish) + "/" + totalCount + " " + models.get(p).getName());
+            measure.feature(models.get(p));
+            long a = System.nanoTime();
+            for (int i = 0; i < ITER_COUNT; ++i) {
+                measure.feature(models.get(p));
             }
+            long b = System.nanoTime();
+            System.out.println(((double) (b - a)) / ITER_COUNT / 1e6);
+            totalTime += (b - a) / ITER_COUNT;
         }
-        double avgTime = ((double) totalTime) / totalCount / 5;
+        double avgTime = ((double) totalTime) / totalCount;
         return avgTime;
     }
 }

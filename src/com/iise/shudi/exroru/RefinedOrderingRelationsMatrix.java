@@ -717,9 +717,9 @@ public class RefinedOrderingRelationsMatrix {
     }
 
     private boolean initialiseNetSystem(NetSystem net) {
-        if (!checkNetSystem(net)) {
-            return false;
-        }
+//        if (!checkNetSystem(net)) {
+//            return false;
+//        }
         if (this._extend) {
             extendNetSystem(net);
         }
