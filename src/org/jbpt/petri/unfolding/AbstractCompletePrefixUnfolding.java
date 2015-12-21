@@ -210,7 +210,8 @@ public class AbstractCompletePrefixUnfolding<BPN extends IBPNode<N>, C extends I
             for (C d : CC) {
                 // add "!d.isCutoffPost()"
                 // by Shudi Wang
-                if (!d.isCutoffPost() && d.getPlace().equals(p)) {
+//                if (!d.isCutoffPost() && d.getPlace().equals(p)) {
+                if (d.getPlace().equals(p)) {
                     Set<C> C2 = new HashSet<C>();
                     for (C dd : CC)
                         if (this.areConcurrent((BPN) d, (BPN) dd))
@@ -288,7 +289,7 @@ public class AbstractCompletePrefixUnfolding<BPN extends IBPNode<N>, C extends I
         }
         for (C newC : e.getPostConditions()) {
             newC.setCutoffPost(true);
-            for (C oldC : corr.getPostConditions()) {
+            for (C oldC : corr.getLocalConfiguration().getCut()) {
                 if (oldC.getPlace() == newC.getPlace()) {
                     if (oldC.getMappingConditions() == null) {
                         oldC.setMappingConditions(new HashSet<C>());
