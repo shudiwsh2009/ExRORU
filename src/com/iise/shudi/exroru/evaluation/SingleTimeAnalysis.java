@@ -39,7 +39,7 @@ public class SingleTimeAnalysis {
     private List<NetSystem> loadNets(File[] files) throws Exception {
         List<NetSystem> nets = new ArrayList<>();
         PNMLSerializer pnmlSerializer = new PNMLSerializer();
-        for(int i = 0; i < files.length; ++i) {
+        for (int i = 0; i < files.length; ++i) {
             NetSystem net = pnmlSerializer.parse(files[i].getAbsolutePath());
             net.setName(files[i].getName());
             nets.add(net);
@@ -50,8 +50,8 @@ public class SingleTimeAnalysis {
     private void computeTime(BufferedWriter writer, List<NetSystem> nets) throws Exception {
         int totalCount = nets.size() * (nets.size() - 1) / 2, finish = 0;
         RormSimilarity rorm = new RormSimilarity();
-        for(int p = 0; p < nets.size(); ++p) {
-            for(int q = p + 1; q < nets.size(); ++q) {
+        for (int p = 0; p < nets.size(); ++p) {
+            for (int q = p + 1; q < nets.size(); ++q) {
                 System.out.println((++finish) + "/" + totalCount + " " + nets.get(p).getName() + " & " + nets.get(q).getName());
                 long[] times1 = rorm.similarityWithTime(nets.get(p), nets.get(q));
                 long[] times2 = rorm.similarityWithTime(nets.get(p), nets.get(q));

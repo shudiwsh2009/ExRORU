@@ -7,10 +7,10 @@ import org.jbpt.petri.INode;
 import org.jbpt.petri.NetSystem;
 import org.jbpt.petri.Place;
 import org.jbpt.petri.Transition;
+import org.jbpt.petri.unfolding.CompletePrefixUnfolding;
 import org.jbpt.petri.unfolding.Condition;
 import org.jbpt.petri.unfolding.Event;
 import org.jbpt.petri.unfolding.IBPNode;
-import org.jbpt.petri.unfolding.ProperCompletePrefixUnfolding;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class RefinedOrderingRelationsMatrix {
     public static final String NEW_TE = "NEW_TE";
 
     private NetSystem _sys;
-    private ProperCompletePrefixUnfolding _cpu;
+    private CompletePrefixUnfolding _cpu;
     private boolean _valid;
     private boolean _extend;
     private RefinedOrderingRelation[][] causalMatrix;
@@ -57,7 +57,7 @@ public class RefinedOrderingRelationsMatrix {
             return;
         }
         this._sys = sys;
-        this._cpu = new ProperCompletePrefixUnfolding(this._sys);
+        this._cpu = new CompletePrefixUnfolding(this._sys);
         this.cpuTime = System.nanoTime() - start;
         start = System.nanoTime();
         this._lc = new LeastCommonPredecessorsAndSuccessors(this._cpu);

@@ -2,7 +2,6 @@ package com.iise.shudi.exroru.evaluation;
 
 import com.iise.shudi.bp.BehavioralProfileSimilarity;
 import com.iise.shudi.exroru.RefinedOrderingRelation;
-import com.iise.shudi.exroru.RormSimilarity;
 import org.jbpt.petri.NetSystem;
 import org.jbpt.petri.io.PNMLSerializer;
 
@@ -34,7 +33,7 @@ public class ScalabilityTimeBatch {
     private List<NetSystem> loadNets(File[] files) throws Exception {
         List<NetSystem> nets = new ArrayList<>();
         PNMLSerializer pnmlSerializer = new PNMLSerializer();
-        for(int i = 0; i < files.length; ++i) {
+        for (int i = 0; i < files.length; ++i) {
             NetSystem net = pnmlSerializer.parse(files[i].getAbsolutePath());
             net.setName(files[i].getName());
             nets.add(net);

@@ -18,8 +18,8 @@ public class BehavioralProfileSimilarity {
         BehaviouralProfile<NetSystem, Node> bp2 = BPCreatorUnfolding.getInstance().deriveRelationSet(net2copy);
         Alignment<BehaviouralProfile<NetSystem, Node>, Node> alignment = new Alignment<>(bp1, bp2);
         net1copy.getTransitions().forEach(t1 -> net2copy.getTransitions().stream()
-            .filter(t2 -> t2.getLabel().equals(t1.getLabel()))
-            .forEach(t2 -> alignment.addElementaryCorrespondence(t1, t2)));
+                .filter(t2 -> t2.getLabel().equals(t1.getLabel()))
+                .forEach(t2 -> alignment.addElementaryCorrespondence(t1, t2)));
         AggregatedSimilarity<BehaviouralProfile<NetSystem, Node>, NetSystem, Node>
                 agg = new AggregatedSimilarity<>();
         return (float) agg.score(alignment);

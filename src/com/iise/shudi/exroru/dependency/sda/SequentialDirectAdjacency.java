@@ -3,7 +3,10 @@ package com.iise.shudi.exroru.dependency.sda;
 import com.iise.shudi.exroru.dependency.lc.LeastCommonPredecessorsAndSuccessors;
 import org.jbpt.petri.NetSystem;
 import org.jbpt.petri.Transition;
-import org.jbpt.petri.unfolding.*;
+import org.jbpt.petri.unfolding.CompletePrefixUnfolding;
+import org.jbpt.petri.unfolding.Condition;
+import org.jbpt.petri.unfolding.Event;
+import org.jbpt.petri.unfolding.IBPNode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,13 +16,13 @@ import java.util.Set;
 public class SequentialDirectAdjacency {
 
     private NetSystem _sys;
-    private ProperCompletePrefixUnfolding _cpu;
+    private CompletePrefixUnfolding _cpu;
     private LeastCommonPredecessorsAndSuccessors _lc;
     private Set<Marking> visitedMarkings = new HashSet<>();
     private Map<Event, Marking> enabledMarkingMap = new HashMap<>();
     private Map<Transition, Set<Transition>> sdaRelations = new HashMap<>();
 
-    public SequentialDirectAdjacency(ProperCompletePrefixUnfolding cpu,
+    public SequentialDirectAdjacency(CompletePrefixUnfolding cpu,
                                      LeastCommonPredecessorsAndSuccessors lc) {
         this._cpu = cpu;
         this._sys = (NetSystem) cpu.getOriginativeNetSystem();

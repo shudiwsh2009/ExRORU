@@ -23,13 +23,13 @@ public class AddLogEventBatch {
         PnmlImport pnmlImport = new PnmlImport();
         File folder = new File(path);
         File[] files = folder.listFiles();
-        for(File file : files) {
+        for (File file : files) {
             FileInputStream input = new FileInputStream(file);
             System.out.println(file.getAbsolutePath());
             PetriNet pn = pnmlImport.read(input);
             input.close();
             pn.setName(file.getName());
-            for(Transition t : pn.getTransitions()) {
+            for (Transition t : pn.getTransitions()) {
                 t.setLogEvent(new LogEvent(t.getIdentifier(), "auto"));
             }
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
